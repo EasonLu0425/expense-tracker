@@ -1,5 +1,5 @@
 <div class="container mt-5">
-  <form action="/record" method="POST">
+  <form action="/record/{{record._id}}?_method=PUT" method="POST">
     <fieldset>
       <legend>新增支出紀錄</legend>
       <div class="mb-3">
@@ -11,6 +11,7 @@
           name="recordName"
           placeholder="請輸入名稱"
           required
+          value="{{recordName}}"
         />
       </div>
       <div class="mb-3">
@@ -22,6 +23,7 @@
           name="amount"
           placeholder="請輸入金額"
           required
+          value="{{amount}}"
         />
       </div>
       <div class="mb-3">
@@ -32,19 +34,20 @@
           class="form-control"
           name="date"
           required
+          value="{{date}}"
         />
       </div>
       <div class="mb-3">
         <label for="category" class="form-label">支出類別</label>
-        <select id="category" class="form-select" name="category" required>
-          <option value="家居物業">家居物業</option>
-          <option value="交通出行">交通出行</option>
-          <option value="休閒娛樂">休閒娛樂</option>
-          <option value="餐飲食品">餐飲食品</option>
-          <option value="其他">其他</option>
+        <select id="category" class="form-select" name="category" required >
+           <option value="家居物業" {{#eq categoryId '家居物業'}}selected{{/eq}}>家居物業</option>
+           <option value="交通出行" {{#eq categoryId '交通出行'}}selected{{/eq}}>交通出行</option>
+           <option value="休閒娛樂" {{#eq categoryId '休閒娛樂'}}selected{{/eq}}>休閒娛樂</option>
+           <option value="餐飲食品" {{#eq categoryId '餐飲食品'}}selected{{/eq}}>餐飲食品</option>
+           <option value="其他" {{#eq categoryId '其他'}}selected{{/eq}}>其他</option>
         </select>
       </div>
-      <button type="submit" class="btn btn-primary">新增支出</button>
+      <button type="submit" class="btn btn-primary">修改支出</button>
     </fieldset>
   </form>
 </div>

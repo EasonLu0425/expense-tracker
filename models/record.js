@@ -19,7 +19,7 @@ const recordSchema = new Schema({
     index:true
   },
   categoryId:{
-    type:Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref:'ExpenseCategory',
     index:true
   }
