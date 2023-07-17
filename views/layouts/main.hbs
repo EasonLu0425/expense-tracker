@@ -9,7 +9,18 @@
   <body>
     <nav class="navbar navbar-dark bg-dark">
       <div class="container">
-        <a class="navbar-brand" href="#">expense-tracker</a>
+        <a class="navbar-brand" href="/">家庭記帳本</a>
+        {{#if isAuthenticated}}
+          <p
+            style="text-align: center"
+          >歡迎回來，{{ user.name}}</p>
+          <a href="/users/logout">
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+            >Logout</button>
+          </a>
+        {{/if}}
       </div>
     </nav>
 
