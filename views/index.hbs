@@ -1,31 +1,34 @@
 <div
   class="container mt-5 d-flex flex-column justify-content-center align-items-center"
-  
 >
   <div class="select">
-    <select name="filter" id="filter" style="width:10vw; height:40px;border-radius:15px;">
-      <option value="all">全部</option>
-      {{#each allCategories}}
-      <option value="{{this.categoryName}}">{{this.categoryName}}</option>
-      {{/each}}
-    </select>
-    <a href="/record/new" class="btn btn-outline-primary">
+      <form action="/sort" method="POST">
+        <select name="filter" id="filter" style="width:10vw; height:40px;border-radius:15px;" onchange="submit()">
+          <option value="all">全部</option>
+          {{#each allCategories}}
+          <option value="{{this.categoryName}}" {{#filter @root.filteredCategoryName this.categoryName}}selected{{/filter}}>{{this.categoryName}}</option>
+          {{/each}}
+        </select>
+      </form>
+  </div>
+  <a href="/record/new" class="btn btn-outline-dark">
       create
     </a>
-  </div>
   <div class="record-list mt-5" style="width:60vw">
     <ul class="list-group">
       <li class="list-group-item">
-          <div class="container col-auto me-auto">
+          <div class="container">
             <div class="row">
-               <div class="img col" style="width:100px; ">
+               <div class="img col-3 d-flex align-items-center justify-content-center">
                類別
               </div>
-              <div class="text col">
-                <h2>名稱</h2>
+              <div class="text col-3 d-flex align-items-center justify-content-center">
+                名稱
               </div>
-              <div class="amount col"><h1>金額</h1></div>
-              <div class="col-auto ">
+              <div class="amount col-3 ms-auto d-flex align-items-center justify-content-center" >
+                金額
+              </div>
+              <div class="col-3 d-flex align-items-center justify-content-center">
                 選項
               <div>
             </div>
@@ -34,20 +37,22 @@
       {{#each records}}
 
       <li class="list-group-item">
-          <div class="container col-auto me-auto">
+          <div class="container">
             <div class="row">
-               <div class="img col" style="width:100px; ">
+               <div class="img col-3 d-flex align-items-center justify-content-center" >
                 {{{this.img}}}
               </div>
-              <div class="text col">
+              <div class="text col-3 d-flex flex-column align-items-center justify-content-center" >
                 <h2>{{this.recordName}}</h2>
                 <p>{{this.date}}</p>
               </div>
-              <div class="amount col"><h1>${{this.amount}}</h1></div>
-              <div class="col-auto ">
-                <a class="btn btn-success" href="/record/{{this._id}}/edit">edit</a>
-                <form action="/record/{{ this._id }}?_method=DELETE" method="POST"  style="display: inline;">
-                  <button class="btn btn-danger" type="submit">delete</button>
+              <div class="amount col-3 d-flex align-items-center justify-content-center">
+                <h1 >${{this.amount}}</h1>
+              </div>
+              <div class="col-3 d-flex align-items-center justify-content-center">
+                <a class="btn btn-light" href="/record/{{this._id}}/edit" >edit</a>
+                <form class="my-auto ms-3" action="/record/{{ this._id }}?_method=DELETE" method="POST"  >
+                  <button class="btn btn-dark" type="submit">delete</button>
                 </form>
               <div>
             </div>

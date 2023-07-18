@@ -15,23 +15,23 @@ const SEED_USER = {
 const CATEGORY = [
   {
     categoryName: "家居物業",
-    img: '<i class="fa-solid fa-house"></i>',
+    img: '<i class="fa-solid fa-house fa-lg"></i>',
   },
   {
     categoryName: "交通出行",
-    img: '<i class="fa-solid fa-van-shuttle"></i>',
+    img: '<i class="fa-solid fa-van-shuttle fa-lg"></i>',
   },
   {
     categoryName: "休閒娛樂",
-    img: '<i class="fa-solid fa-face-grin-beam"></i>',
+    img: '<i class="fa-solid fa-face-grin-beam fa-lg"></i>',
   },
   {
     categoryName: "餐飲食品",
-    img: '<i class="fa-solid fa-utensils"></i>',
+    img: '<i class="fa-solid fa-utensils fa-lg"></i>',
   },
   {
     categoryName: "其他",
-    img: '<i class="fa-solid fa-pen"></i>',
+    img: '<i class="fa-solid fa-pen fa-lg"></i>',
   },
 ];
 
@@ -63,9 +63,9 @@ db.once("open", async () => {
     await Promise.all(
       Array.from({ length: 2 }, async (_, i) => {
         await Record.create({
-          recordName: `name-${i}`,
+          recordName: `居家-${i}`,
           date: Date.now(),
-          amount: `${i+1}00`,
+          amount: `${i + 1}00`,
           userId,
           categoryId: setCategoryId,
         });
@@ -77,9 +77,9 @@ db.once("open", async () => {
     await Promise.all(
       Array.from({ length: 2 }, async (_, i) => {
         await Record.create({
-          recordName: `name-${i}`,
+          recordName: `餐飲-${i}`,
           date: Date.now(),
-          amount: `${i+1}00`,
+          amount: `${i + 1}00`,
           userId,
           categoryId: setCategoryId,
         });

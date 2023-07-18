@@ -31,4 +31,30 @@ router.get("/", async (req, res) => {
   } catch (err) {console.log(err)}
 });
 
+router.post('/sort', async (req, res) => {
+  try{
+    const userId = req.user._id;
+    const keyword = req.body.filter.toString()
+    if (keyword === 'all') {
+      return res.redirect('/')
+    }
+    const allCategories = await Category.find().lean();
+    const filteredCategory = await Category.find({categoryName:keyword}).lean();
+    const filteredCategoryName = filteredCategory[0].categoryName
+    let records = await Record.find({ userId, categoryId:filteredCategory }).lean().sort({ date: "asc" });
+    for (const record of records) {
+      const category = await Category.findOne({
+        _id: record.categoryId,
+      }).lean();
+      record.img = category.img;
+      record.categoryName = category.categoryName;
+      record.date = moment(record.date).format("YYYY/MM/DD");
+    }
+    res.render("index", { records, allCategories, filteredCategoryName });
+
+  } catch (err) {
+    console.log(err)
+  }
+})
+
 module.exports = router;
