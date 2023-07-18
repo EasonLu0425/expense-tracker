@@ -21,13 +21,15 @@ router.get("/", async (req, res) => {
     const userId = req.user._id;
     let records = await Record.find({ userId }).lean().sort({ _id: "asc" });
     const allCategories = await Category.find().lean()
+    let total = 0
     for (const record of records) {
       const category = await Category.findOne({_id: record.categoryId,}).lean();
       record.img = category.img;
       record.categoryName = category.categoryName
       record.date = moment(record.date).format('YYYY/MM/DD')
+      total += record.amount
     }
-    res.render("index", { records, allCategories });
+    res.render("index", { records, allCategories, total });
   } catch (err) {console.log(err)}
 });
 
@@ -42,6 +44,7 @@ router.post('/sort', async (req, res) => {
     const filteredCategory = await Category.find({categoryName:keyword}).lean();
     const filteredCategoryName = filteredCategory[0].categoryName
     let records = await Record.find({ userId, categoryId:filteredCategory }).lean().sort({ date: "asc" });
+    let total = 0
     for (const record of records) {
       const category = await Category.findOne({
         _id: record.categoryId,
@@ -49,8 +52,9 @@ router.post('/sort', async (req, res) => {
       record.img = category.img;
       record.categoryName = category.categoryName;
       record.date = moment(record.date).format("YYYY/MM/DD");
+      total += record.amount
     }
-    res.render("index", { records, allCategories, filteredCategoryName });
+    res.render("index", { records, allCategories, filteredCategoryName, total });
 
   } catch (err) {
     console.log(err)
